@@ -7,8 +7,8 @@ namespace Services.Services.Interfaces
 {
     public interface IService
     {
-        void Save(CustomerDTO model);
-        void Update(CustomerDTO model);
+        void Save(CreateCustomerDTO model);
+        void Update(UpdateCustomerDTO model);
         void Delete(Guid id);
         CustomerDTO Get(Guid id);
         IEnumerable<CustomerDTO> GetAll();

@@ -50,20 +50,22 @@ namespace Services.Services
         return entityDTOList;
         }
 
-        public void Save(CustomerDTO model)
+        public void Save(CreateCustomerDTO model)
         {
-            if (model != null)
-            {
-                _repository.Add(_mapper.Map<TEntity>(model));
-            }
+          if (model != null)
+          {
+            var customer = _mapper.Map<CreateCustomerCommand>(model);
+            _bus.SendCommand(customer);
+          }
         }
-
-        public void Update(CustomerDTO model)
+    
+        public void Update(UpdateCustomerDTO model)
         {
-            if (model != null)
-            {
-                _repository.Update(_mapper.Map<TEntity>(model));
-            }
+          if (model != null)
+          {
+            var customer = _mapper.Map<UpdateCustomerCommand>(model);
+            _bus.SendCommand(customer);
+          }
         }
-    }
+        }
 }

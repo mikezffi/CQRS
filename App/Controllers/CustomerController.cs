@@ -31,7 +31,7 @@ namespace App.Controllers
       return Ok(customer);
     }
     [HttpPost]
-    public ActionResult Post([FromBody] CustomerDTO customerDTO)
+    public ActionResult Post([FromBody] CreateCustomerDTO customerDTO)
     {
       try
       {
@@ -49,7 +49,7 @@ namespace App.Controllers
       }
     }
     [HttpPut]
-    public ActionResult Put([FromBody] CustomerDTO customerDTO)
+    public ActionResult Put([FromBody] UpdateCustomerDTO customerDTO)
     {
       try
       {
