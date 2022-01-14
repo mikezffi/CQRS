@@ -7,6 +7,7 @@ namespace App.Configurations
   {
     public ConfigurationContext(DbContextOptions<ConfigurationContext> options) : base(options)
     {
+      Database.Migrate();
     }
 
     public DbSet<Customer> Customers { get; set; }
