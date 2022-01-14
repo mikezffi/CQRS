@@ -1,4 +1,4 @@
-using Infrastructure.Models;
+using Domain.Models;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 

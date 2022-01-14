@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Infrastructure.Models;
+using Domain.Models;
 
 namespace Infrastructure.Repositories
 {

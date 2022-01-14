@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Configurations;
-using Infrastructure.Models;
+using Domain.Models;
 
 namespace Infrastructure.Repositories
 {
