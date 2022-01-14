@@ -1,5 +1,5 @@
 using Domain.Models;
-using Infrastructure.Repositories;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers

@@ -1,7 +1,8 @@
 using Domain.Models;
 using Infrastructure.Configurations;
-using Infrastructure.Repositories;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

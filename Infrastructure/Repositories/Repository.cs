@@ -1,5 +1,6 @@
 using Infrastructure.Configurations;
 using Core.Models;
+using Domain.Interfaces;
 
 namespace Infrastructure.Repositories
 {
