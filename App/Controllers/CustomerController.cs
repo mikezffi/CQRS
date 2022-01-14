@@ -8,8 +8,8 @@ namespace App.Controllers
   [Route("api/[controller]")]
   public class CustomerController : ControllerBase
   {
-    private readonly IRepository _repository;
-    public CustomerController(IRepository repository)
+    private readonly IRepository<Customer> _repository;
+    public CustomerController(IRepository<Customer> repository)
     {
       _repository = repository;
     }
@@ -17,16 +17,16 @@ namespace App.Controllers
     [HttpGet]
     public ActionResult<IEnumerable<Customer>> GetCustomers()
     {
-      var platformItems = _repository.GetAllPlatforms();
+      var platformItems = _repository.Get();
       return Ok(platformItems);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Customer>> CreatePlatform(Customer platformCreateDto)
-    {
-      _repository.CreatePlatform(platformCreateDto);
-      _repository.SaveChanges();
-      return Ok(platformCreateDto);
-    }
+    // [HttpPost]
+    // public async Task<ActionResult<Customer>> CreatePlatform(Customer platformCreateDto)
+    // {
+    //   _repository.CreatePlatform(platformCreateDto);
+    //   _repository.SaveChanges();
+    //   return Ok(platformCreateDto);
+    // }
   }
 }

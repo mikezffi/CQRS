@@ -1,3 +1,4 @@
+using Domain.Models;
 using Infrastructure.Configurations;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ builder.Services.AddDbContext<ConfigurationContext>(options => options.UseMySql(
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IRepository<Customer>, Repository<Customer>>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

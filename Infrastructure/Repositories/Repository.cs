@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Infrastructure.Configurations;
-using Domain.Models;
+using Core.Models;
 
 namespace Infrastructure.Repositories
 {
-    public class Repository : IRepository
+    public class Repository<T> : IRepository<T> where T : BaseModel
     {
         private readonly ConfigurationContext _context;
 
@@ -14,24 +11,34 @@ namespace Infrastructure.Repositories
         {
             _context = context;
         }
-        public void CreatePlatform(Customer model)
+
+        public void Add(T t)
         {
-        if (model == null)
-        {
-            throw new ArgumentNullException(nameof(model));
-        }
-        
-        _context.Customers.Add(model);
+        _context.Set<T>().Add(t);
+        _context.SaveChanges();
         }
 
-        public IEnumerable<Customer> GetAllPlatforms()
+        public T Find(Guid id)
         {
-        return _context.Customers.ToList();
-        }
-        public bool SaveChanges()
-        {
-        return (_context.SaveChanges() >= 0);
+        return _context.Set<T>().FirstOrDefault(t => t.Id == id);
         }
 
+        public IEnumerable<T> Get()
+        {
+        return _context.Set<T>().Where(t => !t.Delete).ToList();
+        }
+
+        public void Remove(Guid id)
+        {
+        var t = Find(id);
+        _context.Set<T>().Remove(t);
+        _context.SaveChanges();
+        }
+
+        public void Update(T t)
+        {
+        _context.Set<T>().Update(t);
+        _context.SaveChanges();
+        }
     }
 }
