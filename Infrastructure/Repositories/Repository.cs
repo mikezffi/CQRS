@@ -1,6 +1,10 @@
-using App.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Infrastructure.Configurations;
+using Infrastructure.Models;
 
-namespace App.Configurations
+namespace Infrastructure.Repositories
 {
     public class Repository : IRepository
     {

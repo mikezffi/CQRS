@@ -1,7 +1,7 @@
-using App.Models;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.Configurations
+namespace Infrastructure.Configurations
 {
   public class ConfigurationContext : DbContext
   {

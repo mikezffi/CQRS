@@ -1,6 +1,7 @@
-using App.Models;
+using System.Collections.Generic;
+using Infrastructure.Models;
 
-namespace App.Configurations
+namespace Infrastructure.Repositories
 {
     public interface IRepository
     {

@@ -1,6 +1,5 @@
-using App.Configurations;
-using App.Models;
-using AutoMapper;
+using Infrastructure.Models;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Controllers
