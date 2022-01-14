@@ -1,6 +1,8 @@
 using Domain.Models;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Services.Services.Interfaces;
+using Services.DTOs;
 
 namespace App.Controllers
 {
@@ -9,24 +11,78 @@ namespace App.Controllers
   public class CustomerController : ControllerBase
   {
     private readonly IRepository<Customer> _repository;
-    public CustomerController(IRepository<Customer> repository)
+    private readonly IService _service;
+
+    public CustomerController(IRepository<Customer> repository, IService service)
     {
       _repository = repository;
+      _service = service;
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Customer>> GetCustomers()
+    public ActionResult<IEnumerable<CustomerDTO>> GetAll()
     {
-      var platformItems = _repository.Get();
-      return Ok(platformItems);
+      return Ok(_service.GetAll());
     }
-
-    // [HttpPost]
-    // public async Task<ActionResult<Customer>> CreatePlatform(Customer platformCreateDto)
-    // {
-    //   _repository.CreatePlatform(platformCreateDto);
-    //   _repository.SaveChanges();
-    //   return Ok(platformCreateDto);
-    // }
+    [HttpGet("{id}")]
+    public ActionResult<CustomerDTO> GetById(Guid id)
+    {
+      var customer = _service.Get(id);
+      return Ok(customer);
+    }
+    [HttpPost]
+    public ActionResult Post([FromBody] CustomerDTO customerDTO)
+    {
+      try
+      {
+        _service.Save(customerDTO);
+        return Ok();
+      }
+      catch (System.Exception e)
+      {
+        string errors = e.Message;
+        return ValidationProblem(new ValidationProblemDetails()
+        {
+          Type = "Validation Error",
+          Detail = errors
+        });
+      }
+    }
+    [HttpPut]
+    public ActionResult Put([FromBody] CustomerDTO customerDTO)
+    {
+      try
+      {
+        _service.Update(customerDTO);
+        return Ok();
+      }
+      catch (Exception e)
+      {
+        string errors = e.Message;
+        return ValidationProblem(new ValidationProblemDetails()
+        {
+          Type = "Model Validation Error",
+          Detail = errors
+        });
+      }
+    }
+    [HttpDelete("{id}")]
+    public ActionResult Delete(Guid id)
+    {
+      try
+      {
+        _service.Delete(id);
+        return Ok();
+      }
+      catch (Exception e)
+      {
+        string errors = e.Message;
+        return ValidationProblem(new ValidationProblemDetails()
+        {
+          Type = "Cannot delete",
+          Detail = errors
+        });
+      }
+    }
   }
 }

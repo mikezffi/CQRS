@@ -1,10 +1,11 @@
 using Infrastructure.Configurations;
 using Core.Models;
 using Domain.Interfaces;
+using Domain.Models;
 
 namespace Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : BaseModel
+    public class Repository<T> : IRepository<T> where T : Customer
     {
         private readonly ConfigurationContext _context;
 

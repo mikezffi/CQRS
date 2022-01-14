@@ -1,13 +1,14 @@
 using AutoMapper;
 using Core.Models;
 using Domain.Interfaces;
+using Domain.Models;
 using Services.DTOs;
 using Services.Services.Interfaces;
 
 namespace Services.Services
 {
-    public class Service<TEntity> : IService<TEntity>
-        where TEntity : BaseModel
+    public class Service<TEntity> : IService
+        where TEntity : Customer
     {
         private readonly IRepository<TEntity> _repository;
         private readonly IMapper _mapper;
@@ -28,29 +29,29 @@ namespace Services.Services
             }
         }
 
-        public TDTO Get<TDTO>(Guid id) where TDTO : BaseDTO
+        public CustomerDTO Get(Guid id)
         {
             var model = _repository.Find(id);
 
             if (model != null)
             {
-                return _mapper.Map<TDTO>(model);
+                return _mapper.Map<CustomerDTO>(model);
             }
             return null;
         }
 
-        public IEnumerable<TDTO> GetAll<TDTO>() where TDTO : BaseDTO
+        public IEnumerable<CustomerDTO> GetAll()
         {
-            IEnumerable<TEntity> entityList = _repository.Get();
-            List<TDTO> entityDTOList = new List<TDTO>();
-            foreach (TEntity entity in entityList)
-            {
-                entityDTOList.Add(_mapper.Map<TDTO>(entity));
-            }
-            return entityDTOList;
+        IEnumerable<Customer> entityList = _repository.Get();
+        List<CustomerDTO> entityDTOList = new List<CustomerDTO>();
+        foreach (Customer entity in entityList)
+        {
+            entityDTOList.Add(_mapper.Map<CustomerDTO>(entity));
+        }
+        return entityDTOList;
         }
 
-        public void Save<TDTO>(TDTO model) where TDTO : BaseDTO
+        public void Save(CustomerDTO model)
         {
             if (model != null)
             {
@@ -58,7 +59,7 @@ namespace Services.Services
             }
         }
 
-        public void Update<TDTO>(TDTO model) where TDTO : BaseDTO
+        public void Update(CustomerDTO model)
         {
             if (model != null)
             {

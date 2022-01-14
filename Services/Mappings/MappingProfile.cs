@@ -5,9 +5,9 @@ using Services.DTOs;
 
 namespace Services.Mappings
 {
-  public class MappingProfiles : Profile
+  public class MappingProfile : Profile
   {
-    public MappingProfiles()
+    public MappingProfile()
     {
       CreateMap<Customer, CustomerDTO>().ReverseMap();
       //CreateMap<CreateCustomerCommand, CreateCustomerDTO>().ReverseMap();
