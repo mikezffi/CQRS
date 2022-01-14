@@ -1,5 +1,7 @@
 using AutoMapper;
+using Core.CQRS;
 using Core.Models;
+using Domain.Commands;
 using Domain.Interfaces;
 using Domain.Models;
 using Services.DTOs;
@@ -11,22 +13,19 @@ namespace Services.Services
         where TEntity : Customer
     {
         private readonly IRepository<TEntity> _repository;
+        private readonly IBus _bus;
         private readonly IMapper _mapper;
 
-        public Service(IRepository<TEntity> repository, IMapper mapper)
+        public Service(IRepository<TEntity> repository, IBus bus, IMapper mapper)
         {
             _repository = repository;
+            _bus = bus;
             _mapper = mapper;
         }
 
         public void Delete(Guid id)
         {
-            var model = _repository.Find(id);
-            if (model != null)
-            {
-                model.Delete = true;
-                _repository.Update(model);
-            }
+            _bus.SendCommand(new RemoveCustomerCommand(id));
         }
 
         public CustomerDTO Get(Guid id)

@@ -7,6 +7,10 @@ using Services.Services;
 using Services.Services.Interfaces;
 using AutoMapper;
 using Services.Mappings;
+using Core.CQRS;
+using Infrastructure.Bus;
+using Domain.Commands;
+using Domain.Handlers.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +29,18 @@ var mappingConfig = new MapperConfiguration(mc =>
 IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IService, Service<Customer>>();
 builder.Services.AddScoped<IRepository<Customer>, Repository<Customer>>();
+builder.Services.AddScoped<IBus, InMemoryBus>();
+
+builder.Services.AddScoped<IHandler<CreateCustomerCommand>, CustomerCommandHandler>();
+builder.Services.AddScoped<IHandler<UpdateCustomerCommand>, CustomerCommandHandler>();
+builder.Services.AddScoped<IHandler<RemoveCustomerCommand>, CustomerCommandHandler>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
